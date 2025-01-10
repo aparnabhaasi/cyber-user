@@ -51,31 +51,32 @@ const ServiceAreaHomeOne = () => {
             </div>
           </div>
           <div className="row">
-            <div className="col-lg-4 col-sm-4 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s" data-wow-offset="0">
-              <div className="single_service">
-                <img src="assets/img/129788.jpg" className="img-fluid" alt="image" />
-                <h2>Physical protection</h2>
-                <p>Physical security encompasses strategies and measures implemented to protect personnel, assets, and information from unauthorized access, damage, theft, or other security breaches.</p>
-                <Link href="/service">Read More <i className="ti-arrow-top-right"></i></Link>
-              </div>
-            </div>
-            <div className="col-lg-4 col-sm-4 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s" data-wow-offset="0">
-              <div className="single_service">
-                <img src="assets/img/18107.jpg" className="img-fluid" alt="image" />
-                <h2>Network protection</h2>
-                <p>Organizations and companies managing significant volumes of data implement a range of solutions to counter various cyber threats.</p>
-                <Link href="/service">Read More <i className="ti-arrow-top-right"></i></Link>
-              </div>
-            </div>
-            <div className="col-lg-4 col-sm-4 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s" data-wow-offset="0">
-              <div className="single_service">
-                <img src="assets/img/8290045_3824032.jpg" className="img-fluid" alt="image" />
-                <h2>Endpoint protection</h2>
-                <p>Endpoint security refers to the practice of safeguarding devices such as workstations, servers, and other systems capable of supporting security clients from malicious threats and cyberattacks.</p>
-                <Link href="/service">Read More <i className="ti-arrow-top-right"></i></Link>
-              </div>
-            </div>
-          </div>
+  <div className="col-lg-4 col-sm-4 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s" data-wow-offset="0">
+    <div className="single_service">
+      <img src="assets/img/129788.jpg" className="img-fluid" alt="image" />
+      <h2>Physical protection</h2>
+      <p>Physical security encompasses strategies and measures implemented to protect personnel, assets, and information from unauthorized access, damage, theft, or other security breaches.</p>
+      <Link href="/service">Read More <i className="ti-arrow-top-right"></i></Link>
+    </div>
+  </div>
+  <div className="col-lg-4 col-sm-4 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s" data-wow-offset="0">
+    <div className="single_service">
+      <img src="assets/img/18107.jpg" className="img-fluid" alt="image" />
+      <h2>Network protection</h2>
+      <p>Organizations and companies managing significant volumes of data implement a range of solutions to counter various cyber threats.</p>
+      <Link href="/service">Read More <i className="ti-arrow-top-right"></i></Link>
+    </div>
+  </div>
+  <div className="col-lg-4 col-sm-4 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s" data-wow-offset="0">
+    <div className="single_service">
+      <img src="assets/img/8290045_3824032.jpg" className="img-fluid" alt="image" />
+      <h2>Endpoint protection</h2>
+      <p>Endpoint security refers to the practice of safeguarding devices such as workstations, servers, and other systems capable of supporting security clients from malicious threats and cyberattacks.</p>
+      <Link href="/service">Read More <i className="ti-arrow-top-right"></i></Link>
+    </div>
+  </div>
+</div>
+
         </div>
       </section>
 

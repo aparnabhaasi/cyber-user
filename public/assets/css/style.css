@@ -1698,3 +1698,51 @@ body {
 		margin: auto;
 		margin-bottom: 40px;
 	}
+	.error_page h2 {
+		font-weight: 800;
+		margin: 30px 0;
+		font-size: 50px;
+	}
+	.error_page p {
+		margin-bottom: 40px;
+		font-weight: 500;
+		width: 50%;
+		margin: auto;
+		margin-bottom: 40px;
+	}
+	.single_service {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		height: 100%;
+	  }
+	  
+	  .single_service a {
+		margin-top: auto; /* Push the button to the bottom */
+		display: inline-block;
+		text-align: left;
+		padding: 10px 20px;
+	
+		color: #18fef5;
+		text-decoration: none;
+		border-radius: 5px;
+	  }
+
+	  /* .single_service a:hover {
+		color: #ffffff;
+} */
+	  
+	  .single_service a i {
+		margin-left: 5px;
+	  }
+	  
+	  .row {
+		display: flex;
+		flex-wrap: wrap;
+	  }
+	  
+	  .col-lg-4, .col-sm-4, .col-xs-12 {
+		display: flex;
+		justify-content: space-between;
+		flex-direction: column;
+	  }

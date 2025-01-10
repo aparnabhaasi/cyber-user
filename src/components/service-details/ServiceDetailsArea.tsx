@@ -34,7 +34,7 @@ const ServiceDetailsArea = () => {
               </div> */}
              <div className="single_ssd_info">
                 <h3 className="section_subheading" style={{ marginBottom: "10px" }}>Importance of Physical Protection</h3>
-                <h4 style={{ marginTop: "20px" }}>Safeguarding Assets and Personnel :</h4>
+                <h4 style={{ marginTop: "30px" }}>Safeguarding Assets and Personnel :</h4>
                 <p>Physical security protects employees, facilities, and critical assets from real-world threats posed by internal and external intruders, ensuring data and operational safety.</p>
               </div>
 
