@@ -35,7 +35,7 @@ const ServiceAreaHomeOne = () => {
 
   return (
     <>
-      <section className="service_area section-padding">
+      <section className="service_area section-padding" style={{ marginTop: '-70px' }}>
         <div className="container">
           <div className="row">
             <div className="col-lg-6 col-sm-6 col-xs-12">

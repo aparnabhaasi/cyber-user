@@ -11,7 +11,7 @@ const HeroAreaHomeOne = () => {
     <>
       <section className="home_bg hb_height"
         style={{ 
-          backgroundImage: `url(/assets/img/bg/21516377601.jpg)`, 
+          backgroundImage: `url(/assets/img/bg/mains.jpg)`, 
           backgroundSize: "cover", 
           backgroundPosition: "center center" 
         }}>

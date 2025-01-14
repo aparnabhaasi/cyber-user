@@ -4,10 +4,11 @@ import React from 'react';
 const PriceAreaHomeOne = () => {
   return (
     <>
-      <section className="plan_home_area section-padding">
+      <section className="plan_home_area section-padding"  style={{ marginTop: '-50px' }}>
         <div className="container">
           <div className="section-title text-center">
-            <span>Courses Offered</span>
+          <span style={{ fontSize: '24px', fontWeight: 'bold' }}>Courses Offered</span>
+
             {/* <h2>Our best pricing plan for <br />your solution</h2> */}
           </div>
           <div className="row">
