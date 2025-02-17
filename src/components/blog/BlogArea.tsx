@@ -63,7 +63,7 @@ const BlogArea = () => {
               <div className="single_blog">
                 <Image
                   src={blog.imageUrl.startsWith('/uploads')
-                    ? `http://localhost:3001${blog.imageUrl}`
+                    ? `http://cybers-six.vercel.app${blog.imageUrl}`
                     : blog.imageUrl}
                   alt={blog.title}
                   width={500}

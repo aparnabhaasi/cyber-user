@@ -6,8 +6,7 @@ module.exports = {
       {
         protocol: 'https',
         hostname: 'cybers-six.vercel.app',
-        port: '',
-        pathname: '/uploads/**',  // Should match the image path
+        pathname: '/uploads/**',  // Match the image path
       },
     ],
   },

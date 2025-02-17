@@ -64,7 +64,7 @@ const ServiceArea = () => {
               <div className="single_service">
                 <Image
                   src={service.imageUrl.startsWith('/uploads')
-                    ? `http://localhost:3001${service.imageUrl}`
+                    ? `http://cybers-six.vercel.app${service.imageUrl}`
                     : service.imageUrl}
                   alt={service.title}
                   width={500}
@@ -94,7 +94,7 @@ const ServiceArea = () => {
             <div className="modal-image">
               <Image
                 src={selectedService.imageUrl.startsWith('/uploads')
-                  ? `http://localhost:3001${selectedService.imageUrl}`
+                  ? `http://cybers-six.vercel.app${selectedService.imageUrl}`
                   : selectedService.imageUrl}
                 alt={selectedService.title}
                 width={350}

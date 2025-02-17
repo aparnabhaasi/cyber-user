@@ -97,7 +97,7 @@ const ServiceAreaHomeOne = () => {
                     <Image
                       src={
                         service.imageUrl.startsWith('/uploads')
-                          ? `http://localhost:3001${service.imageUrl}`
+                          ? `http://cybers-six.vercel.app${service.imageUrl}`
                           : service.imageUrl
                       }
                       alt={service.title || 'Service'}

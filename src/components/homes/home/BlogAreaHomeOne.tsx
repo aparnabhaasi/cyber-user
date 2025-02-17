@@ -72,7 +72,7 @@ const BlogAreaHomeOne = () => {
                 <div className="single_blog">
                   {/* Ensure correct image URL */}
                   <Image
-                    src={blog.imageUrl.startsWith("http") ? blog.imageUrl : `http://localhost:3001${blog.imageUrl}`}
+                    src={blog.imageUrl.startsWith("http") ? blog.imageUrl : `http://cybers-six.vercel.app${blog.imageUrl}`}
                     width={500}
                     height={300}
                     className="img-fluid"
@@ -101,7 +101,7 @@ const BlogAreaHomeOne = () => {
 
               {selectedBlog.imageUrl ? (
                 <Image
-                  src={selectedBlog.imageUrl.startsWith("http") ? selectedBlog.imageUrl : `http://localhost:3001${selectedBlog.imageUrl}`}
+                  src={selectedBlog.imageUrl.startsWith("http") ? selectedBlog.imageUrl : `http://cybers-six.vercel.app${selectedBlog.imageUrl}`}
                   width={500}
                   height={300}
                   className="img-fluid"
