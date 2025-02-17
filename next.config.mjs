@@ -1,16 +1,15 @@
 /** @type {import('next').NextConfig} */
-module.exports = {
+export default {
   images: {
-    domains: ['cybers-six.vercel.app'],  // Only the hostname
+    domains: ['cybers-six.vercel.app'],
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'cybers-six.vercel.app',
-        pathname: '/uploads/**',  // Match the image path
+        pathname: '/uploads/**',
       },
     ],
   },
-  experimental: {
-    appDir: true
-  }
+  // Removed the appDir option since it's deprecated in Next.js 14.1.0
+  pageExtensions: ['tsx', 'ts'],
 };
