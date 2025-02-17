@@ -1,19 +1,17 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+module.exports = {
   images: {
-    domains: ['localhost', 'localhost:3001'], // Include both
+    domains: ['https://cybers-six.vercel.app/'],
     remotePatterns: [
       {
-        protocol: 'http',
-        hostname: 'localhost',
-        port: '3001', 
+        protocol: 'https',
+        hostname: 'https://cybers-six.vercel.app/',
+        port: '',
         pathname: '/uploads/**',
       },
     ],
   },
   experimental: {
-    appDir: true  // Enable App Router support
+    appDir: true
   }
 };
-
-export default nextConfig;
