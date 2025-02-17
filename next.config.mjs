@@ -1,13 +1,13 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
   images: {
-    domains: ['https://cyber-user.vercel.app/'],
+    domains: ['cybers-six.vercel.app'],  // Only the hostname
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'https://cyber-user.vercel.app/',
+        hostname: 'cybers-six.vercel.app',
         port: '',
-        pathname: '/uploads/**',
+        pathname: '/uploads/**',  // Should match the image path
       },
     ],
   },
