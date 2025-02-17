@@ -1,95 +1,138 @@
+'use client';
 
-'use client'
+import React, { useState, useEffect } from 'react';
 
-import React from 'react';
+interface Course {
+  id: string;
+  title: string;
+}
 
-const ContactArea = () => {
+interface FormData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  mobile: string;
+  course: string;
+  country?: string;
+}
+
+const BookingArea = () => {
+  const [formData, setFormData] = useState<FormData>({
+    firstName: '',
+    lastName: '',
+    email: '',
+    mobile: '',
+    course: '',
+    country: '',
+  });
+  const [courses, setCourses] = useState<Course[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const response = await fetch('/api/courses');
+        if (!response.ok) throw new Error('Failed to fetch courses');
+        const data = await response.json();
+        setCourses(data);
+      } catch (error) {
+        console.error('Error fetching courses:', error);
+      }
+    };
+    fetchCourses();
+  }, []);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+    setSuccess(false);
+
+    if (!formData.firstName || !formData.lastName || !formData.email || !formData.mobile || !formData.course) {
+      setError('Please fill out all required fields');
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/booking', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Something went wrong');
+      }
+
+      setSuccess(true);
+      setFormData({ firstName: '', lastName: '', email: '', mobile: '', course: '', country: '' });
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <>
-      {/* <section className="address_area section-padding">
-        <div className="container">
-          <div className="row text-center">
-            <div className="col-lg-4 col-sm-4 col-xs-12 mt-5 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.1s" data-wow-offset="0">
-              <div className="single_address">
-                <i className="ti-map"></i>
-                <h4>Our Location</h4>
-                <p>Door No. 203, 2nd Floor, SBR CV Tower<br /> Madhapur, Shaikpet, Hyderabad-500081, Telengana</p>
-              </div>
-            </div>
-            <div className="col-lg-4 col-sm-4 col-xs-12 mt-5 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s" data-wow-offset="0">
-              <div className="single_address sabr">
-                <i className="ti-mobile"></i>
-                <h4>Telephone</h4>
-                <p>  9656250000</p>
-              </div>
-            </div>
-            <div className="col-lg-4 col-sm-4 col-xs-12 mt-5 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.3s" data-wow-offset="0">
-              <div className="single_address">
-                <i className="ti-email"></i>
-                <h4>Send email</h4>
-                <p> mail@cybersinusoidal.com</p>
-                <p> sinusoidalcyber@gmail.com</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section> */}
-
-
-
-      <div id="contact" className="contact_area section-padding">
-        <div className="container">
-          <div className="section-title text-center">
-            <span>Register Now</span>
+    <section className="booking_area section-padding">
+      <div className="container">
+        <div className="section-title text-center">
+           <span>Register Now</span>
             <h2>Secure Your Spot - Register Now!</h2>
-            {/* <h2>Contact us for any kind  <br />of inquire</h2> */}
-          </div>
-          <div className="row">
-            <div className="offset-lg-1 col-lg-10 col-sm-12 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s" data-wow-offset="0">
-              <div className="contact">
-                <form className="form" name="enq" onClick={e => e.preventDefault()}>
-                  <div className="row">
-                    <div className="form-group col-md-6">
-                      <label htmlFor="">First Name</label>
-                      <input type="text" name="firstname" className="form-control" required />
-                    </div>
-                    <div className="form-group col-md-6">
-                      <label htmlFor="">Last Name</label>
-                      <input type="text" name="lastname" className="form-control" required />
-                      </div>
-                    </div>
-                    <div className="row">
-                    <div className="form-group col-md-6">
-                      <label htmlFor="">Email</label>
-                      <input type="email" name="email" className="form-control" required />
-                    </div>
-                    <div className="form-group col-md-6">
-                      <label htmlFor="">Mobile</label>
-                      <input type="text" name="number" className="form-control" required />
-                    </div>
-                    </div>
-                    <div className="row">
-                    <div className="form-group col-md-6">
-                      <label htmlFor="">Course</label>
-                      <input type="text" name="course" className="form-control" required />
-                    </div>
-                    <div className="form-group col-md-6">
-                      <label htmlFor="">Country</label>
-                      <input type="text" name="country" className="form-control" required />
-                      </div>
-                    </div>
-                    <div className="col-md-12 text-center">
-                      <button type="submit" value="submit" name="submit" id="submitButton" className="btn_one" title="Register Now!">Submit</button>
-                    </div>
-                  
-                </form>
+        </div>
+        <div className="row">
+          <div className="col-lg-10 offset-lg-1">
+            <form className="form" onSubmit={handleSubmit}>
+              <div className="row">
+                <div className="form-group col-md-6">
+                  <label>First Name</label>
+                  <input type="text" name="firstName" className="form-control" value={formData.firstName} onChange={handleChange} required />
+                </div>
+                <div className="form-group col-md-6">
+                  <label>Last Name</label>
+                  <input type="text" name="lastName" className="form-control" value={formData.lastName} onChange={handleChange} required />
+                </div>
+                <div className="form-group col-md-6">
+                  <label>Email</label>
+                  <input type="email" name="email" className="form-control" value={formData.email} onChange={handleChange} required />
+                </div>
+                <div className="form-group col-md-6">
+                  <label>Mobile</label>
+                  <input type="text" name="mobile" className="form-control" value={formData.mobile} onChange={handleChange} required />
+                </div>
+                <div className="form-group col-md-6">
+                  <label>Course</label>
+                  <select name="course" className="form-control" value={formData.course} onChange={handleChange} required>
+                    <option value="">Select a course</option>
+                    {courses.map((course) => (
+                      <option key={course.title} value={course.title}>{course.title}</option>
+                    ))}
+                  </select>
+                </div>
+                <div className="form-group col-md-6">
+                  <label>Country</label>
+                  <input type="text" name="country" className="form-control" value={formData.country} onChange={handleChange} />
+                </div>
+                <div className="col-md-12 text-center">
+                  <button type="submit" className="btn_one" disabled={loading}>{loading ? 'Submitting...' : 'Book Now'}</button>
+                </div>
               </div>
-            </div>
+              {success && <p className="text-success text-center mt-3">Booking successful!</p>}
+              {error && <p className="text-danger text-center mt-3">{error}</p>}
+            </form>
           </div>
         </div>
       </div>
-    </>
+    </section>
   );
 };
 
-export default ContactArea;
+export default BookingArea;

@@ -1,72 +1,186 @@
+'use client';
 
+import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 
-import React from 'react';
-import Link from 'next/link';
+interface Blog {
+  id: string;
+  title: string;
+  description?: string;
+  imageUrl: string;
+}
 
 const BlogArea = () => {
+  const [blogs, setBlogs] = useState<Blog[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedBlog, setSelectedBlog] = useState<Blog | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const response = await fetch('/api/blog');
+        const data = await response.json();
+        setBlogs(data);
+      } catch (error) {
+        console.error('Error fetching blogs:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBlogs();
+  }, []);
+
+  const openModal = async (id: string) => {
+    try {
+      const response = await fetch(`/api/blog/${id}`);
+      const data = await response.json();
+      if (response.ok) {
+        setSelectedBlog(data);
+        setIsModalOpen(true);
+      } else {
+        console.error('Error fetching blog details:', data.error);
+      }
+    } catch (error) {
+      console.error('Error fetching blog details:', error);
+    }
+  };
+
+  const closeModal = () => {
+    setSelectedBlog(null);
+    setIsModalOpen(false);
+  };
+
+  if (loading) return <div>Loading...</div>;
+
   return (
-    <>
-      <section className="blog_area section-padding">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-6 col-sm-4 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s" data-wow-offset="0">
+    <section className="blog_area section-padding">
+      <div className="container">
+        <div className="row">
+          {blogs.map((blog) => (
+            <div key={blog.id} className="col-lg-6 col-sm-4 col-xs-12">
               <div className="single_blog">
-                <img src="assets/img/blog/1.jpg" className="img-fluid" alt="image" />
-                  {/* <span><Link href="/blog-details">Security</Link></span>
-                  <span>February 15, 2024</span> */}
-                  <h3><Link href="/blog">India Comes Up With Digital Data Rules With Severe Reprimand And Cybersecurity Requirements</Link></h3>
-                  <Link href="/blog-details" className="blog_btn">View Details <i className="ti-arrow-top-right"></i></Link>
+                <Image
+                  src={blog.imageUrl.startsWith('/uploads')
+                    ? `http://localhost:3001${blog.imageUrl}`
+                    : blog.imageUrl}
+                  alt={blog.title}
+                  width={500}
+                  height={300}
+                  className="img-fluid"
+                />
+                <h3 className="text-white">{blog.title}</h3>
+                <button onClick={() => openModal(blog.id)} className="blog_btn">
+                  View Details <i className="ti-arrow-top-right"></i>
+                </button>
               </div>
             </div>
-            <div className="col-lg-6 col-sm-4 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s" data-wow-offset="0">
-              <div className="single_blog">
-                <img src="assets/img/blog/2.jpg" className="img-fluid" alt="image" />
-                  {/* <span><Link href="/blog-details">Security</Link></span>
-                  <span>February 15, 2024</span> */}
-                  <h3><Link href="/blog">Dozens Of Google Chrome Extensions Have Been Discovered Stealing Sensitive Data</Link></h3>
-                  <Link href="/blog-details" className="blog_btn">View Details <i className="ti-arrow-top-right"></i></Link>
-              </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Modal for Blog Details */}
+      {isModalOpen && selectedBlog && (
+        <div className="modal-overlay" onClick={closeModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <span className="close-btn" onClick={closeModal}>&times;</span>
+
+            {/* Title at the Top */}
+            <h2 className="modal-title">{selectedBlog.title}</h2>
+
+            {/* Image Below the Title */}
+            <div className="modal-image">
+              <Image
+                src={selectedBlog.imageUrl.startsWith('/uploads')
+                  ? `http://localhost:3000${selectedBlog.imageUrl}`
+                  : selectedBlog.imageUrl}
+                alt={selectedBlog.title}
+                width={350}
+                height={250}
+                className="img-responsive"
+              />
             </div>
-            {/* <div className="col-lg-4 col-sm-4 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s" data-wow-offset="0">
-              <div className="single_blog">
-                <img src="assets/img/blog/3.jpg" className="img-fluid" alt="image" />
-                  <span><Link href="/blog-details">Security</Link></span>
-                  <span>February 15, 2024</span>
-                  <h3><Link href="/blog">Improve your business so that you can stay in your local business in next month.</Link></h3>
-                  <Link href="/blog" className="blog_btn">View Details <i className="ti-arrow-top-right"></i></Link>
-              </div>
-            </div> */}
-            {/* <div className="col-lg-4 col-sm-4 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s" data-wow-offset="0">
-              <div className="single_blog">
-                <img src="assets/img/blog/4.jpg" className="img-fluid" alt="image" />
-                  <span><Link href="/blog-details">Security</Link></span>
-                  <span>February 15, 2024</span>
-                  <h3><Link href="/blog">A significant shift in mindset is required to support either type of side project.</Link></h3>
-                  <Link href="/blog" className="blog_btn">View Details <i className="ti-arrow-top-right"></i></Link>
-              </div>
-            </div> */}
-            {/* <div className="col-lg-4 col-sm-4 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s" data-wow-offset="0">
-              <div className="single_blog">
-                <img src="assets/img/blog/5.jpg" className="img-fluid" alt="image" />
-                  <span><Link href="/blog-details">Security</Link></span>
-                  <span>February 15, 2024</span>
-                  <h3><Link href="/blog">Population change anything what your need for your next generation.</Link></h3>
-                  <Link href="/blog" className="blog_btn">View Details <i className="ti-arrow-top-right"></i></Link>
-              </div>
-            </div> */}
-            {/* <div className="col-lg-4 col-sm-4 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s" data-wow-offset="0">
-              <div className="single_blog">
-                <img src="assets/img/blog/6.jpg" className="img-fluid" alt="image" />
-                  <span><Link href="/blog-details">Security</Link></span>
-                  <span>February 15, 2024</span>
-                  <h3><Link href="/blog">How to Improve your business so that you can stay in your local business.</Link></h3>
-                  <Link href="/blog" className="blog_btn">View Details <i className="ti-arrow-top-right"></i></Link>
-              </div>
-            </div> */}
+
+            {/* Scrollable Description */}
+            <div className="modal-body">
+              <p>{selectedBlog.description}</p>
+            </div>
           </div>
         </div>
-      </section>
-    </>
+      )}
+
+      {/* Modal Styles */}
+      <style jsx>{`
+        .modal-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.9);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 1000;
+          padding: 20px;
+        }
+        .modal-content {
+          background: black;
+          color: white;
+          border: 2px solid white;
+          border-radius: 12px;
+          width: 50vw;
+          max-height: 80vh;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding: 20px;
+          overflow: hidden;
+        }
+        .modal-title {
+          font-size: 24px;
+          font-weight: bold;
+          text-align: center;
+          margin-bottom: 10px;
+        }
+        .modal-image {
+          width: 350px;
+          height: 250px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: 2px solid white;
+          border-radius: 8px;
+          margin-bottom: 10px;
+          overflow: hidden;
+        }
+        .modal-image img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+        .modal-body {
+          overflow-y: auto;
+          max-height: 50vh;
+          width: 100%;
+          padding-right: 10px;
+          scrollbar-width: thin;
+          scrollbar-color: white black;
+          text-align: center;
+        }
+        .close-btn {
+          position: absolute;
+          top: 10px;
+          right: 20px;
+          font-size: 30px;
+          cursor: pointer;
+          color: white;
+          background: transparent;
+          border: none;
+        }
+      `}</style>
+    </section>
   );
 };
 

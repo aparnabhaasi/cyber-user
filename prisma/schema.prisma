@@ -1,0 +1,92 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model about {
+  id          String   @id
+  title       String
+  imageUrl    String
+  decsription String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime
+}
+
+model blog {
+  id          String   @id
+  title       String
+  description String
+  imageUrl    String   @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime
+}
+
+model booking {
+  id        String   @id
+  firstname String
+  lastname  String
+  email     String
+  mobile    String
+  message   String
+  courseId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+  course    course   @relation(fields: [courseId], references: [id], onDelete: Cascade, map: "Booking_courseId_fkey")
+
+  @@index([courseId], map: "Booking_courseId_fkey")
+}
+
+model contact {
+  id        String   @id
+  name      String
+  email     String
+  subject   String
+  message   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+}
+
+model course {
+  id        String    @id
+  title     String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime
+  booking   booking[]
+}
+
+model keyword {
+  id        String   @id
+  title     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+}
+
+model seo {
+  id          String   @id
+  page        String
+  title       String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime
+}
+
+model service {
+  id          String   @id
+  title       String
+  description String
+  imageUrl    String   @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime
+}
+
+model slider {
+  id        String   @id
+  title     String
+  createdAt DateTime @default(now())
+  imageUrl  String
+  updatedAt DateTime
+}
