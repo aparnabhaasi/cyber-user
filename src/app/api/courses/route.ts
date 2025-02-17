@@ -15,7 +15,7 @@ const cors = (req: Request) => {
     };
   }
   
-  return {}; // If not allowed, no CORS headers
+  return undefined; // Return undefined if not allowed, as no CORS headers are needed
 };
 
 export async function GET(req: Request) {
