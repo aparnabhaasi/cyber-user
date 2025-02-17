@@ -2,11 +2,10 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 
 // CORS middleware function
-const cors = (req: Request) => {
+const cors = (req: Request): Record<string, string> => {
   const allowedOrigins = ['http://localhost:3000']; // Define allowed origins
   const origin = req.headers.get('Origin') || '';
 
-  // Check if the request's origin is in the allowed origins list
   if (allowedOrigins.includes(origin)) {
     return {
       'Access-Control-Allow-Origin': origin,
@@ -15,12 +14,11 @@ const cors = (req: Request) => {
     };
   }
   
-  return undefined; // Return undefined if not allowed, as no CORS headers are needed
+  return {}; // Return an empty object instead of undefined
 };
 
 export async function GET(req: Request) {
   try {
-    // Apply CORS headers
     const headers = cors(req);
 
     // Fetch course from the database
@@ -35,7 +33,6 @@ export async function GET(req: Request) {
 }
 
 export async function OPTIONS(req: Request) {
-  // Handle the OPTIONS method for preflight requests (browser sends this before a cross-origin request)
   const headers = cors(req);
 
   return new NextResponse(null, {
