@@ -1,11 +1,11 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
   images: {
-    domains: ['https://cybers-six.vercel.app/'],
+    domains: ['https://cyber-user.vercel.app/'],
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'https://cybers-six.vercel.app/',
+        hostname: 'https://cyber-user.vercel.app/',
         port: '',
         pathname: '/uploads/**',
       },
